@@ -15,8 +15,8 @@ function App() {
   ]);
 
   const onToggleCompleted = (index) => {
-    setTasks((prevTasks) => {
-      return prevTasks.map((task, currIndex) => {
+    setTasks((prevTasks) =>
+      prevTasks.map((task, currIndex) => {
         if (index === currIndex) {
           return {
             ...task,
@@ -24,16 +24,35 @@ function App() {
           };
         }
         return task;
-      });
-    });
+      })
+    );
   };
 
-  const onRemoveTask = (index) => {};
+  const onRemoveTask = (index) => {
+    setTasks((prevTasks) =>
+      prevTasks.filter((_, currIndex) => {
+        if (index !== currIndex) {
+          return true;
+        }
+        return false;
+      })
+    );
+  };
+
+  const onAddTask = (text) => {
+    setTasks((prevTasks) => [
+      ...prevTasks,
+      {
+        text,
+        completed: false,
+      },
+    ]);
+  };
 
   return (
     <div className="todo">
       <Header name="Список задач" />
-      <AddInput placeholder="Добавить список задач..." />
+      <AddInput placeholder="Добавить список задач..." onAddTask={onAddTask} />
 
       <div className="todo_quest">
         {tasks.map((task, index) => (

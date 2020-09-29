@@ -1,6 +1,12 @@
 import React from "react";
 
 function Item({ text, index, completed, onToggleCompleted, onRemoveTask }) {
+  const RemoveTask = () => {
+    if (global.confirm("Вы действительно хотите удалить?")) {
+      onRemoveTask(index);
+    }
+  };
+
   return (
     <div
       className={`todo_quest-field ${
@@ -25,7 +31,7 @@ function Item({ text, index, completed, onToggleCompleted, onRemoveTask }) {
         </svg>
       </div>
       <p>{text}</p>
-      <button onClick={() => onRemoveTask(index)} className="delete">
+      <button onClick={() => RemoveTask(index)} className="delete">
         <svg
           width="24"
           height="24"
